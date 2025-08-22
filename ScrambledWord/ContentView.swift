@@ -10,7 +10,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    var letters : [String] = ["O", "R", "A", "N", "G", "E"]
+    @State var letters : [LetterModel] = [
+        LetterModel(id: 0, letterText: "A"),
+        LetterModel(id: 1, letterText: "R"),
+        LetterModel(id: 2, letterText: "O"),
+        LetterModel(id: 3, letterText: "N"),
+        LetterModel(id: 4, letterText: "E"),
+        LetterModel(id: 5, letterText: "G"),
+    ]
+    @State var guessLetters : [LetterModel] = []
     
     var body: some View {
         GeometryReader { proxy in
@@ -25,9 +33,13 @@ struct ContentView: View {
                             .frame(width: 100, height: 100)
                         Spacer()
                         HStack{
-                            ForEach(letters, id: \.self){ch in
+                            ForEach(Array(guessLetters.enumerated()), id: \.1){index, ch in
                                 VStack {
                                     LetterView(letter: ch)
+                                        .onTapGesture {
+                                            guessLetters.remove(at: index)
+                                            letters[ch.id].letterText = ch.letterText
+                                        }
                                     Rectangle()
                                         .fill(Color.white)
                                         .frame(width: 30, height: 2)
@@ -49,8 +61,13 @@ struct ContentView: View {
                         .padding(.top)
                     
                     HStack{
-                        ForEach(letters, id: \.self){ch in
+                        ForEach(Array(letters.enumerated()), id: \.1){index, ch in
                             LetterView(letter: ch)
+                                .onTapGesture {
+                                    if ch.letterText.isEmpty {return}
+                                    guessLetters.append(ch)
+                                    letters[index].letterText = ""
+                                }
                         }
                     }
                 }
@@ -64,9 +81,9 @@ struct ContentView: View {
 }
 
 struct LetterView: View {
-    let letter : String
+    let letter : LetterModel
     var body: some View {
-        Text(letter)
+        Text(letter.letterText)
             .font(.system(size: 18, weight: .semibold))
             .foregroundStyle(Color.white)
             .frame(width: 30, height: 30)
