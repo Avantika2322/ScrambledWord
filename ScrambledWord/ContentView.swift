@@ -19,6 +19,7 @@ struct ContentView: View {
         LetterModel(id: 5, letterText: "G"),
     ]
     @State var guessLetters : [LetterModel] = []
+    let correctAns = "ORANGE"
     
     var body: some View {
         GeometryReader { proxy in
@@ -28,7 +29,7 @@ struct ContentView: View {
                 VStack {
                     VStack {
                         Spacer()
-                        Image("apple")
+                        Image("orange")
                             .resizable()
                             .frame(width: 100, height: 100)
                         Spacer()
@@ -67,6 +68,22 @@ struct ContentView: View {
                                     if ch.letterText.isEmpty {return}
                                     guessLetters.append(ch)
                                     letters[index].letterText = ""
+                                    
+                                    if guessLetters.count == letters.count {
+//                                        var gussedAns = ""
+//                                        
+//                                        for ch in guessLetters {
+//                                            gussedAns.append(ch.letterText)
+//                                        }
+                                        
+                                        let gussedAns = guessLetters.map{ $0.letterText }.joined()
+                                        
+                                        if gussedAns == correctAns {
+                                            print(true)
+                                        }else {
+                                            print(false)
+                                        }
+                                    }
                                 }
                         }
                     }
