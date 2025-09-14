@@ -4,6 +4,7 @@ ScrambledWord is a fun word puzzle game built with SwiftUI.
 Players unscramble shuffled letters to form the correct word. Currently, the game works for a single word, but it is designed to be extended into a list of words where the player progresses through multiple challenges.
 
 
+
 🛠 Tech Stack
 
 SwiftUI → Declarative UI framework
@@ -13,6 +14,7 @@ Protocols & Identity → Identifiable, Hashable, Equatable for data models
 Extensions → Reusable view and model utilities
 
 State Management → @State for handling user guesses and game state
+
 
 
 🚀 Features
@@ -26,6 +28,7 @@ State Management → @State for handling user guesses and game state
 ✅ Check if guessed word matches the correct answer
 
 📈 Extendable to word lists → once a word is solved, move to the next
+
 
 
 
